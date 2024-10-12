@@ -24,6 +24,23 @@
         content="Adaptive Compliance Policy: Learning Approximate Compliance for Diffusion Guided Control" />
     <meta property="og:description" content="" />
 
+    <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    </style>
 
 </head>
 
@@ -57,17 +74,16 @@
                     </div> -->
                 </div>
             </div>
-
-            <h1 style="text-align: center; margin-bottom: 0; font-size: 300%">Adaptive Compliance Policy:</h1>
+            <h1 style="text-align: center; margin-bottom: 0; color: #8C1515; font-size: 300%">Adaptive Compliance Policy</h1>
             <h2 style="text-align: center; white-space: nowrap; font-size: 200%">Learning Approximate Compliance for
                 Diffusion Guided Control</h2>
 
             <h3 style="text-align: center; margin-top: -1em; margin-bottom: -1em;">
-                <span style="color: black">Yifan Hou <sup>1</sup>
-                    &nbsp&nbsp Zeyi Liu<sup>1</sup> &nbsp&nbsp Cheng Chi<sup>1</sup></a>
-                    &nbsp&nbsp Eric Cousineau<sup>2</sup> &nbsp&nbsp Naveen Kuppuswamy<sup>2</sup> &nbsp&nbsp
+                <span style="color: black"><a href="https://yifan-hou.github.io/">Yifan Hou</a> <sup>1</sup>
+                    &nbsp&nbsp <a href="https://lzylucy.github.io/">Zeyi Liu</a><sup>1</sup> &nbsp&nbsp <a href="https://cheng-chi.github.io/">Cheng Chi</a><sup>1</sup></a>
+                    &nbsp&nbsp <a href="https://www.eacousineau.com/">Eric Cousineau</a><sup>2</sup> &nbsp&nbsp <a href="https://naveenoid.wordpress.com/about/">Naveen Kuppuswamy</a><sup>2</sup> &nbsp&nbsp
                     <br>
-                    Siyuan Feng<sup>2</sup> &nbsp&nbsp Benjamin Burchfiel<sup>2</sup> &nbsp&nbsp Shuran Song<sup>1</sup>
+                    <a href="https://www.cs.cmu.edu/~sfeng/">Siyuan Feng</a><sup>2</sup> &nbsp&nbsp <a href="https://scholar.google.com/citations?user=eGoTK1YAAAAJ&hl=en">Benjamin Burchfiel</a><sup>2</sup> &nbsp&nbsp <a href="https://shurans.github.io/">Shuran Song</a><sup>1</sup>
                     <br>
                 </span>
                 <!-- <p style="margin-top:0.25em;"> <span style="color: #8C1515">Stanford University</span> &nbsp&nbsp 
@@ -94,29 +110,32 @@
                 However, computing full compliance parameters from human demonstrations is an ill-defined problem.
                 Instead, we estimate an approximate compliance profile with two useful properties: avoiding large
                 contact forces and encouraging accurate tracking.
-                Our approach enables robots to handle complex contact-rich manipulation tasks and achieves over 40%
+                Our approach enables robots to handle complex contact-rich manipulation tasks and achieves over 50%
                 performance improvement compared to state-of-the-art visuomotor policy methods.
             </p>
 
             <hr>
             <h2>Method</h2>
             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
-                <div style="width: 40%; text-align: left; padding-right: 20px;">
+                <div style="width: 30%; text-align: left; padding-right: 20px;">
                     <p>
-                        Our policy predicts temporal-spatial varying stiffness, pose, and force, encoded by reference pose
-                        (where the robot should be), virtual target pose (where the robot moves towards), and a stiffness
-                        (of the compliant direction).
+                        Our policy predicts temporal-spatial varying stiffness, pose, and force, encoded by: <br>
+                        1. the reference pose (where the robot should be), <br>
+                        2. the virtual target pose (where the robot moves towards), <br>
+                        3. stiffness (of the compliant direction).
+
                     </p>
                 </div>
-                <div style="width: 60%; text-align: right;">
+                <div style="width: 70%; text-align: right;">
                     <video controls style="width: 100%;">
                         <source src="videos/video2_method.mp4" type="video/mp4">
                     </video>
                 </div>
             </div>
-
+            We compute a spatial-temporal varying stiffness matrix for every episode of demonstration by only allowing compliance in the direction of feedback force vector, when the feedback force is large. We proved that this strategy guarantees the safety of the execution (no excessive contact force) under mild assumptions.
             <hr>
             <h2>Data Collection</h2>
+             We designed a kinesthetic teaching system with low-stiffness, low-inertia compliance that allows the operator to demonstrate variable compliance behavior with direct haptic feedback.
             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
                 <div style="width: 50%; text-align: left; padding-right: 20px;">
                     <img src="images/image1.jpg" style="width: 100%; height: auto;">
@@ -130,24 +149,96 @@
 
             <hr>
             <h2>Experiments</h2>
+            We evaluate our method in two contact-rich manipulation tasks whose success depends on the maintenance of suitable contact modes. We compare four methods: <br>
+            1. ACP: our method. <br>
+            2. ACP w.o. FFT: same as ACP but with force encoded using temporal convolution instead of FFT. <br>
+            3. Stiff policy: Diffusion policy with additional force input. Outputs target positions. <br>
+            4. Compliant policy: Same as the [Stiff policy] except that the low level controller has a uniform stiffness k = 500N/m.
 
-            <h3>Flipping Task</h3>
+            <h3>Task I: Item Flipping</h3>
+            The task is to flip up an item with a point finger by pivoting it against a corner of a fixture. The dataset for this task includes 230 demonstrations across 15 items. Each method is evaluated 100 times.
+            <table>
+              <tr>
+                <th>Method</th>
+                <th>Training Items</th>
+                <th>Unseen Items</th>
+                <th>Push and Flip</th>
+                <th>Varied Fixture pose</th>
+                <th>Unstable Fixture</th>
+                <th>All</th>
+              </tr>
+              <tr>
+                <td>ACP</td>
+                <td><b>90%</b></td>
+                <td>95%</td>
+                <td>95%</td>
+                <td><b>100%</b></td>
+                <td><b>100%</b></td>
+                <td><b>96%</b></td>
+              </tr>
+              <tr>
+                <td>ACP w.o. FFT</td>
+                <td>90%</td>
+                <td>100%</td>
+                <td>100%</td>
+                <td>95%</td>
+                <td>90%</td>
+                <td>95%</td>
+              </tr>
+              <tr>
+                <td>Compliant Policy</td>
+                <td>80%</td>
+                <td>15%</td>
+                <td>15%</td>
+                <td>5%</td>
+                <td>0%</td>
+                <td>23%</td>
+              </tr>
+              <tr>
+                <td>Stiff Policy</td>
+                <td>20%</td>
+                <td>0%</td>
+                <td>5%</td>
+                <td>35%</td>
+                <td>10%</td>
+                <td>14%</td>
+              </tr>
+            </table>
+            This task shows how ACP handles sticking contacts robustly under positional uncertainties. The action prediction inevitably contains noise. ACP is robust to the noise and consistently maintain the desired contact, while the baselines are heavily affected by position uncertainty and drops the item frequently. Both ACP variations achieves > 70% improvements comparing with the baselines.
             <div style="text-align: center; justify-content: center; margin-bottom: 20px;">
-                <video controls style="width: 80%">
+                <video controls style="width: 100%">
                     <source src="videos/video4_flipup_results.mp4" type="video/mp4">
                 </video>
             </div>
 
-            <h3>Wiping Task</h3>
+            <h3>Task II: Vase Wiping</h3>
+            The task is to wipe off markings on a vase. The demonstrated motion uses the left arm to hold the vase while the right arm performs the wiping. We collected 200 demonstrations with various vase poses, marking shapes, and colors. Each demonstration includes one to five wipes to fully clean the markings. <br>
+
+            We ran 16 tests for each method: <br>
+            1~5: small marking with five different vase locations. <br>
+            6~10: large marking with five different vase locations. <br>
+            11~16: middle marking with perturbations. <br>
+
+            Success is defined as wiping the vase clean within three wipes.
+            A vase is considered clean if the remaining of the original mark is within an 1cm x 1cm region, not considering the markings left by the wipe itself.
+
             <div style="text-align: center; justify-content: center; margin-bottom: 20px;">
-                <video controls style="width: 80%">
+                <video controls style="width: 100%">
                     <source src="videos/video5_wiping_results.mp4" type="video/mp4">
                 </video>
             </div>
 
-            <p>Qualitative Results:</p>
+            <p>
+                The video result above does not include the [Stiff Policy], since the policy breaks the robot hand easily. Instead, [ACP] safely engages and maintains contacts during the wipes for its compliance. <br>
+                <br>
+                Compared with the [Compliant Policy], [ACP] maintains accurate tracking of the desired motion for being stiff in the motion directions. The wiping motion of the [Compliant Policy] deviates from the position target because it is sensitive to the friction from the vase. <br>
+                <br>
+                Compared with [ACP w.o. FFT], our policy with the FFT encoding has better success rate and finishes the task with fewer wipes. We observed that the FFT encoding, when used together with RGB encoding via cross-attention, makes better decision on the next best wiping location. <br>
+                <br>
+                The figure below shows the vase before and after each test. <br>
+            </p>
             <div style="text-align: center; justify-content: center; margin-bottom: 20px; ">
-                <img src="images/image2.jpg" style="width: 90%; height: auto;">
+                <img src="images/image2.jpg" style="width: 100%; height: auto;">
             </div>
 
         </section>
