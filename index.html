@@ -78,6 +78,12 @@
                 </p>
             </h3>
 
+            <div style="text-align: center; justify-content: center; margin-bottom: 20px;">
+                <video controls style="width: 100%">
+                    <source src="videos/video1_teaser_comparison.mp4" type="video/mp4">
+                </video>
+            </div>
+
             <p style="color: black;">Compliance plays a crucial role in manipulation, as it balances between the
                 concurrent control of position and force under uncertainties.
                 Yet compliance is often overlooked by today's visuomotor policies that solely focus on position control.
@@ -93,12 +99,57 @@
             </p>
 
             <hr>
-            <h3>Technical Summary Video (4 min)</h3>
+            <h2>Method</h2>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+                <div style="width: 40%; text-align: left; padding-right: 20px;">
+                    <p>
+                        Our policy predicts temporal-spatial varying stiffness, pose, and force, encoded by reference pose
+                        (where the robot should be), virtual target pose (where the robot moves towards), and a stiffness
+                        (of the compliant direction).
+                    </p>
+                </div>
+                <div style="width: 60%; text-align: right;">
+                    <video controls style="width: 100%;">
+                        <source src="videos/video2_method.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+            <hr>
+            <h2>Data Collection</h2>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+                <div style="width: 50%; text-align: left; padding-right: 20px;">
+                    <img src="images/image1.jpg" style="width: 100%; height: auto;">
+                </div>
+                <div style="width: 50%; text-align: right;">
+                    <video controls style="width: 100%; height: auto;">
+                        <source src="videos/video3_demonstration.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+            <hr>
+            <h2>Experiments</h2>
+
+            <h3>Flipping Task</h3>
             <div style="text-align: center; justify-content: center; margin-bottom: 20px;">
-                <video controls style="width: 100%">
-                    <source src="videos/summary.mp4" type="video/mp4">
+                <video controls style="width: 80%">
+                    <source src="videos/video4_flipup_results.mp4" type="video/mp4">
                 </video>
             </div>
+
+            <h3>Wiping Task</h3>
+            <div style="text-align: center; justify-content: center; margin-bottom: 20px;">
+                <video controls style="width: 80%">
+                    <source src="videos/video5_wiping_results.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <p>Qualitative Results:</p>
+            <div style="text-align: center; justify-content: center; margin-bottom: 20px; ">
+                <img src="images/image2.jpg" style="width: 90%; height: auto;">
+            </div>
+
         </section>
     </div>
 
