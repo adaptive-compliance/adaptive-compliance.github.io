@@ -121,6 +121,12 @@
                 </video>
             </div>
 
+            <h3>Paper</h3>
+            Latest version: <a href="https://arxiv.org/abs/XXXX">arXiv</a> or <a href="documents/CompliantPolicy.pdf">here</a>.
+            <div class="12u$"><a href="documents/CompliantPolicy.pdf"><span class="image fit" style="border: 1px solid; border-color: #888888;"><img src="images/paper_thumbnail.jpg" alt=""></span></a></div>
+            <h3>Code & Data</h3>
+            Coming soon.
+
             <hr>
             <h2>Method</h2>
             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
@@ -156,14 +162,15 @@
 
             <hr>
             <h2>Experiments</h2>
+            <p>
             We evaluate our method in two contact-rich manipulation tasks whose success depends on the maintenance of suitable contact modes. We compare four methods: <br>
             1. ACP: our method. <br>
             2. ACP w.o. FFT: same as ACP but with force encoded using temporal convolution instead of FFT. <br>
-            3. Stiff policy: Diffusion policy with additional force input. Outputs target positions. <br>
-            4. Compliant policy: Same as the [Stiff policy] except that the low level controller has a uniform stiffness k = 500N/m.
-
+            3. Stiff policy: Baseline I, diffusion policy with additional force input. Outputs target positions. <br>
+            4. Compliant policy: Baseline II, same as the 3 except that the low level controller has a uniform stiffness k = 500N/m.
+            </p>
             <h3>Task I: Item Flipping</h3>
-            The task is to flip up an item with a point finger by pivoting it against a corner of a fixture. The dataset for this task includes 230 demonstrations across 15 items. Each method is evaluated 100 times.
+            The task is to flip up an item with a point finger by pivoting it against a corner of a fixture. The dataset for this task includes 230 demonstrations across 15 items. Each method is evaluated 100 times, the success rate is shown below.
             <table>
               <tr>
                 <th>Method</th>
@@ -185,9 +192,9 @@
               </tr>
               <tr>
                 <td>ACP w.o. FFT</td>
-                <td>90%</td>
-                <td>100%</td>
-                <td>100%</td>
+                <td><b>90%</b></td>
+                <td><b>100%</b></td>
+                <td><b>100%</b></td>
                 <td>95%</td>
                 <td>90%</td>
                 <td>95%</td>
@@ -219,9 +226,7 @@
             </div>
 
             <h3>Task II: Vase Wiping</h3>
-            The task is to wipe off markings on a vase. The demonstrated motion uses the left arm to hold the vase while the right arm performs the wiping. We collected 200 demonstrations with various vase poses, marking shapes, and colors. Each demonstration includes one to five wipes to fully clean the markings. <br>
-
-            We ran 16 tests for each method: <br>
+            The task is to wipe off markings on a vase. The demonstrated motion uses the left arm to hold the vase while the right arm performs the wiping. We collected 200 demonstrations with various vase poses, marking shapes, and colors. Each demonstration includes one to five wipes to fully clean the markings. We ran 16 tests for each method: <br>
             1~5: small marking with five different vase locations. <br>
             6~10: large marking with five different vase locations. <br>
             11~16: middle marking with perturbations. <br>
@@ -236,7 +241,7 @@
             </div>
 
             <p>
-                The video result above does not include the [Stiff Policy], since the policy breaks the robot hand easily. Instead, [ACP] safely engages and maintains contacts during the wipes for its compliance. <br>
+                The video above does not include the [Stiff Policy], since the policy breaks the robot hand easily. Instead, [ACP] safely engages and maintains contacts during the wipes for its compliance. <br>
                 <br>
                 Compared with the [Compliant Policy], [ACP] maintains accurate tracking of the desired motion for being stiff in the motion directions. The wiping motion of the [Compliant Policy] deviates from the position target because it is sensitive to the friction from the vase. <br>
                 <br>
