@@ -96,7 +96,7 @@
 
             <div style="text-align: center; justify-content: center; margin-bottom: 20px;">
                 <video controls style="width: 100%">
-                    <source src="videos/video1_teaser_comparison.mp4" type="video/mp4">
+                    <source src="videos/video1_teaser.mp4" type="video/mp4">
                 </video>
             </div>
 
@@ -112,7 +112,14 @@
                 contact forces and encouraging accurate tracking.
                 Our approach enables robots to handle complex contact-rich manipulation tasks and achieves over 50%
                 performance improvement compared to state-of-the-art visuomotor policy methods.
+                <br>
+                Piror visuomotor policy typically uses a constant stiffness profile (e.g. via passive compliance), or use no compliance, which will either be sensitive to force noise/disturbances, or be prune to huge contact forces under positional uncertainties. The video below demonstrates the difference between our method and the compliant/stiff baselines.
             </p>
+            <div style="text-align: center; justify-content: center; margin-bottom: 20px;">
+                <video controls style="width: 100%">
+                    <source src="videos/video2.5_comparison.mp4" type="video/mp4">
+                </video>
+            </div>
 
             <hr>
             <h2>Method</h2>
