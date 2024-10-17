@@ -103,6 +103,7 @@
             <p style="color: black;">Compliance plays a crucial role in manipulation, as it balances between the
                 concurrent control of position and force under uncertainties.
                 Yet compliance is often overlooked by today's visuomotor policies that solely focus on position control.
+                <br><br>
                 This paper introduces Adaptive Compliance Policy (ACP), a novel framework that learns to dynamically
                 adjust system compliance both spatially and temporally for given manipulation tasks from human
                 demonstrations, improving upon previous approaches that rely on pre-selected compliance parameters or
@@ -110,9 +111,9 @@
                 However, computing full compliance parameters from human demonstrations is an ill-defined problem.
                 Instead, we estimate an approximate compliance profile with two useful properties: avoiding large
                 contact forces and encouraging accurate tracking.
+                <br><br>
                 Our approach enables robots to handle complex contact-rich manipulation tasks and achieves over 50%
                 performance improvement compared to state-of-the-art visuomotor policy methods.
-                <br>
                 Prior visuomotor policy typically uses a constant stiffness profile (e.g. via passive compliance), or use no compliance, which will either be sensitive to force noise/disturbances, or be prune to huge contact forces under positional uncertainties. The video below demonstrates the difference between our method and the compliant/stiff baselines.
             </p>
             <div style="text-align: center; justify-content: center; margin-bottom: 20px;">
@@ -129,23 +130,19 @@
 
             <hr>
             <h2>Method</h2>
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
-                <div style="width: 30%; text-align: left; padding-right: 20px;">
-                    <p>
-                        Our policy predicts temporal-spatial varying stiffness, pose, and force, encoded by: <br>
-                        1. the reference pose (where the robot should be), <br>
-                        2. the virtual target pose (where the robot moves towards), <br>
-                        3. stiffness (of the compliant direction).
+            <p>
+                Our policy predicts temporal-spatial varying stiffness, pose, and force, encoded by: <br>
+                1. the reference pose (where the robot should be), <br>
+                2. the virtual target pose (where the robot moves towards), <br>
+                3. stiffness (of the compliant direction).
 
-                    </p>
-                </div>
-                <div style="width: 70%; text-align: right;">
-                    <video controls style="width: 100%;">
-                        <source src="videos/video2_method.mp4" type="video/mp4">
-                    </video>
-                </div>
+            </p>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+                <video controls style="width: 100%;">
+                    <source src="videos/video2_method.mp4" type="video/mp4">
+                </video>
             </div>
-            We compute a spatial-temporal varying stiffness matrix for every episode of demonstration by only allowing compliance in the direction of feedback force vector, when the feedback force is large. We proved that this strategy guarantees the safety of the execution (no excessive contact force) under mild assumptions.
+            In order to train the policy, we compute a spatial-temporal varying stiffness matrix for every episode of demonstration by only allowing compliance in the direction of feedback force vector, when the feedback force is large. We proved that this strategy guarantees the safety of the execution (no excessive contact force) under mild assumptions. See Section III.C of the paper for the detail of the stiffness matrix computation.
             <hr>
             <h2>Data Collection</h2>
              We designed a kinesthetic teaching system with low-stiffness, low-inertia compliance that allows the operator to demonstrate variable compliance behavior with direct haptic feedback.
@@ -153,7 +150,7 @@
                 <div style="width: 50%; text-align: left; padding-right: 20px;">
                     <img src="images/image1.jpg" style="width: 100%; height: auto;">
                 </div>
-                <div style="width: 50%; text-align: right;">
+                <div style="width: 50%; text-align: right; padding-right: 20px;">
                     <video controls style="width: 100%; height: auto;">
                         <source src="videos/video3_demonstration.mp4" type="video/mp4">
                     </video>
